@@ -1,10 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
-<<<<<<< HEAD
+
 {% block title %}Address{% endblock title %}
-=======
-{% block title %}Registration{% endblock title %}
->>>>>>> origin/main
 
 {% block main-content %}
 <div class="container my-5">
@@ -31,11 +28,11 @@
                             <p>Mobile : {{ad.mobile}}</p>
                             <p>Division : {{ad.division}}</p>
                             <p>zipcode : {{ad.zipcode}}</p>
-<<<<<<< HEAD
+
                             <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" type="button" class="btn btn-success">Update</a></p>
-=======
-                            <p class="text-center"><a href="#" type="button" class="btn btn-success">Update</a></p>
->>>>>>> origin/main
+
+                            
+
                         </div>
                     </div>
                 </div>

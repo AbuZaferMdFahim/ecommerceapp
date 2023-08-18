@@ -57,16 +57,13 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle " href="#"
-              id="profiledropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Anim</a>
+              id="profiledropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{request.user}}</a>
               <ul class="dropdown-menu" aria-labelledby="profiledropdown">
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Orders</a></li>
-<<<<<<< HEAD
+
                 <li><a class="dropdown-item" href="{% url 'passwordChange' %}">Change Password</a></li>
-=======
-                <li><a class="dropdown-item" href="#">Change Password</a></li>
->>>>>>> origin/main
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>
             <li class="nav-item mx-2"><a href="#" class="nav-link text-white">Cart 4</a></li>
