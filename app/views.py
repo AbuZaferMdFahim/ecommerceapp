@@ -1,6 +1,10 @@
 from django.db.models import Count
 from django.http import HttpResponse
+<<<<<<< HEAD
 from django.shortcuts import redirect, render
+=======
+from django.shortcuts import render
+>>>>>>> origin/main
 from django.views import View
 from django.contrib import messages
 from app.forms import CustomRegistrationForm,CustomerProfileForm
@@ -19,10 +23,13 @@ def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request,'app/address.html',locals())
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> origin/main
 class CategoryView(View):
     def get(self,request,val):
         product = Product.objects.filter(category=val)
@@ -72,6 +79,7 @@ class ProfileView(View):
             
             reg = Customer(user = user,name=name, locality=locality,city=city,mobile=mobile,division=division,zipcode=zipcode)
             reg.save()
+<<<<<<< HEAD
             messages.success(request,'Congratulation! Profile Saved Succesfully')
             
         else:
@@ -98,3 +106,10 @@ class UpdateAddressView(View):
         else:
             messages.warning(request, "Invalid Input Data")
         return redirect('address')   
+=======
+            messages.success(request,"Congratilation! Profile Saved Succesfully")
+        else:
+            messages.warning(request, "Invalid Input Data")
+        return render(request, 'app/profile.html',locals())
+
+>>>>>>> origin/main
