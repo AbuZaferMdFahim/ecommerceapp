@@ -30,9 +30,9 @@
                     {%endfor%}
                 {%endif%}
 
-                {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                        <p class="alert alert-danger my-3">{{error}}</p>
+                {% if messages %}
+                    {% for msg in messages %}
+                        <div class="alert alert-{{msg.tags}}" role="alert">{{msg}}</div>
                     {%endfor%}
                 {%endif%}
 

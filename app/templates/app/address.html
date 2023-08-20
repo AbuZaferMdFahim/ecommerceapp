@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Registration{% endblock title %}
+
+{% block title %}Address{% endblock title %}
 
 {% block main-content %}
 <div class="container my-5">
@@ -27,7 +28,11 @@
                             <p>Mobile : {{ad.mobile}}</p>
                             <p>Division : {{ad.division}}</p>
                             <p>zipcode : {{ad.zipcode}}</p>
-                            <p class="text-center"><a href="#" type="button" class="btn btn-success">Update</a></p>
+
+                            <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" type="button" class="btn btn-success">Update</a></p>
+
+                            
+
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,12 @@
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.http import JsonResponse
 from django.views import View
 from django.contrib import messages
 from app.forms import CustomRegistrationForm,CustomerProfileForm
-from .models import Product,Customer
-
+from .models import Cart, Product,Customer
+from django.db.models import Q
 # Create your views here.
 
 def home(request):
@@ -18,6 +19,44 @@ def contact(request):
 def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request,'app/address.html',locals())
+
+def addtoCart(request):
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user=user,product=product).save()
+    return redirect('/cart')
+
+def showCart(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    amount = 0
+    for p in cart:
+        value = p.quantity* p.product.discounted_price
+        amount = amount+value
+    totalamount = amount+40 
+    return render(request, 'app/addtoCart.html',locals())
+
+def plusCurt(request):
+    if request.method=='GET':
+        prod_id = request.GET['prod_id']
+        c= Cart.objects.get(Q(product=prod_id) & Q (user=request.user))
+        c.quantity+=1
+        c.save()
+        user = request.user
+        cart = Cart.objects.filter(user=user) 
+        for p in cart:
+            value = p.quantity* p.product.discounted_price
+            amount = amount+value
+        totalamount = amount+40 
+        data={
+            'quantity':c.quantity,
+            'amount': amount,
+            'totalamount': totalamount
+
+        }
+        return JsonResponse(data)
+
 
 class CategoryView(View):
     def get(self,request,val):
@@ -68,8 +107,30 @@ class ProfileView(View):
             
             reg = Customer(user = user,name=name, locality=locality,city=city,mobile=mobile,division=division,zipcode=zipcode)
             reg.save()
-            messages.success(request,"Congratilation! Profile Saved Succesfully")
+
+            messages.success(request,'Congratulation! Profile Saved Succesfully')
+            
         else:
             messages.warning(request, "Invalid Input Data")
         return render(request, 'app/profile.html',locals())
-
+    
+class UpdateAddressView(View):
+    def get(self,request,pk):
+        add = Customer.objects.get(pk=pk)
+        form = CustomerProfileForm(instance=add)
+        return render(request, 'app/updateAddress.html',locals())
+    def post(self,request,pk):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            add = Customer.objects.get(pk=pk)
+            add.name = form.cleaned_data['name']
+            add.locality = form.cleaned_data['locality']
+            add.city = form.cleaned_data['city']
+            add.mobile = form.cleaned_data['mobile']
+            add.division = form.cleaned_data['division']
+            add.zipcode = form.cleaned_data['zipcode'] 
+            add.save()
+            messages.success(request,'Congratulation! Profile Updated Succesfully')
+        else:
+            messages.warning(request, "Invalid Input Data")
+        return redirect('address')   
