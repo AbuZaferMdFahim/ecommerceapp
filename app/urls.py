@@ -18,6 +18,7 @@ urlpatterns = [
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(),name="product-detail"),
     path('profile/', views.ProfileView.as_view(),name="profile"),
     path('address/', views.address,name="address"),
+<<<<<<< HEAD
     path('updateAddress/<int:pk>', views.UpdateAddressView.as_view(),name="updateAddress"),
 
     #Order
@@ -26,6 +27,11 @@ urlpatterns = [
     path('checkout/', views.showCart,name="checkout"),
     path('plusCurt/', views.plusCurt,name="plusCurt"),
 
+=======
+
+    path('updateAddress/<int:pk>', views.UpdateAddressView.as_view(),name="updateAddress"),
+
+>>>>>>> 2d5aa6a6ff5897d343f6924dfa0e1c18c6bb5836
 
     
     #login authentication
@@ -39,10 +45,18 @@ urlpatterns = [
     #password reset
     path('passwordReset/',auth_view.PasswordResetView.as_view(template_name = 'app/passwordReset.html',form_class= MyPasswordResetForm),name='passwordReset'),
 
+<<<<<<< HEAD
     path('passwordReset/done/',auth_view.PasswordResetDoneView.as_view(template_name = 'app/passwordResetDone.html'),name='password_reset_done'),
 
     path('password_reset_confirm/<uidb64>/<token>/',auth_view.PasswordResetConfirmView.as_view(template_name = 'app/passwordResetConfirm.html',form_class= MyPasswordForm),name='password_reset_confirm'),
 
     path('password_reset_complete/',auth_view.PasswordResetCompleteView.as_view(template_name = 'app/passwordResetComplete.html'),name='password_reset_complete'),
+=======
+    path('passwordReset/done/',auth_view.PasswordResetDoneView.as_view(template_name = 'app/passwordResetDone.html'),name='passwordResetDone'),
+
+    path('passwordResetConfrim/<uidb64>/<token>/',auth_view.PasswordResetConfirmView.as_view(template_name = 'app/passwordResetConfirm.html',form_class= MyPasswordForm),name='passwordResetConfirm'),
+
+    path('passwordResetComplete/',auth_view.PasswordResetCompleteView.as_view(template_name = 'app/passwordResetComplete.html'),name='passwordResetComplete'),
+>>>>>>> 2d5aa6a6ff5897d343f6924dfa0e1c18c6bb5836
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

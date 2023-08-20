@@ -1,7 +1,11 @@
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+<<<<<<< HEAD
 from django.http import JsonResponse
+=======
+from django.shortcuts import render
+>>>>>>> 2d5aa6a6ff5897d343f6924dfa0e1c18c6bb5836
 from django.views import View
 from django.contrib import messages
 from app.forms import CustomRegistrationForm,CustomerProfileForm
@@ -133,4 +137,11 @@ class UpdateAddressView(View):
             messages.success(request,'Congratulation! Profile Updated Succesfully')
         else:
             messages.warning(request, "Invalid Input Data")
+<<<<<<< HEAD
         return redirect('address')   
+=======
+        return redirect('address')   
+
+
+
+>>>>>>> 2d5aa6a6ff5897d343f6924dfa0e1c18c6bb5836
