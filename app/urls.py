@@ -23,8 +23,10 @@ urlpatterns = [
     #Order
     path('addtoCart/', views.addtoCart,name="addtoCart"),
     path('cart/', views.showCart,name="showCart"),
-    path('checkout/', views.showCart,name="checkout"),
+    path('checkout/', views.checkoutView.as_view(),name="checkout"),
     path('plusCurt/', views.plusCurt,name="plusCurt"),
+    path('minusCurt/', views.minusCurt,name="minusCurt"),
+    path('removeCurt/', views.removeCurt,name="removeCurt"),
 
 
 

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -117,6 +118,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# settings.py
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Update this path to your preferred location
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')  # Update this path to the correct one
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 LOGIN_REDIRECT_URL = '/profile/'
@@ -124,8 +132,6 @@ LOGIN_REDIRECT_URL = '/profile/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-=======
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
->>>>>>> 2d5aa6a6ff5897d343f6924dfa0e1c18c6bb5836
+
