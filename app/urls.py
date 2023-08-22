@@ -2,6 +2,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+from django.contrib import admin
 from django.contrib.auth import views as auth_view
 
 from . forms import LoginForm,MyPasswordResetForm,MyPasswordChangeForm,MyPasswordForm
@@ -18,6 +19,7 @@ urlpatterns = [
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(),name="product-detail"),
     path('profile/', views.ProfileView.as_view(),name="profile"),
     path('address/', views.address,name="address"),
+    path('search/', views.search,name="search"),
     path('updateAddress/<int:pk>', views.UpdateAddressView.as_view(),name="updateAddress"),
 
     #Order
@@ -27,6 +29,10 @@ urlpatterns = [
     path('plusCurt/', views.plusCurt,name="plusCurt"),
     path('minusCurt/', views.minusCurt,name="minusCurt"),
     path('removeCurt/', views.removeCurt,name="removeCurt"),
+
+    #wishlist
+    path('pluswishlist/', views.plus_wishlist,name="pluswishlist"),
+    path('minuswishlist/', views.minus_wishlist,name="minuswishlist"),
 
 
 
@@ -61,3 +67,7 @@ urlpatterns = [
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Anim Dairy"
+admin.site.site_title = "Anim Dairy"
+admin.site.site_index_title = "Welcome to Anim Dairy Shop"
