@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from rest_framework.generics import CreateAPIView
+from django.db.models import Count
+from django.http import HttpResponse
+from django.shortcuts import redirect, render,HttpResponse
+from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -58,6 +64,7 @@ def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request,'app/address.html',locals())
 
+
 @login_required
 def addProduct(request):
     totalitem = 0
@@ -77,6 +84,7 @@ def addProduct(request):
         form = ProductForm()
 
     return render(request, 'app/addProduct.html', locals())
+
 
 @login_required
 def addtoCart(request):
@@ -114,10 +122,8 @@ def plusCurt(request):
             prod_id = request.GET['prod_id']
             user = request.user
             carts = Cart.objects.filter(product=prod_id, user=user)
-                
            
             if carts.exists():
-                
                 cart_item = carts.first()
                 cart_item.quantity += 1
                 cart_item.save()
@@ -136,10 +142,9 @@ def plusCurt(request):
                 return JsonResponse({'error': 'Cart item not found'}, status=404)
             
         except MultipleObjectsReturned:
-            
+
             return JsonResponse({'error': 'Multiple Cart items found'}, status=500)
         except Exception as e:
-            
             print("Error:", str(e))
             return JsonResponse({'error': 'An error occurred'}, status=500)
 
@@ -150,10 +155,7 @@ def minusCurt(request):
             prod_id = request.GET['prod_id']
             user = request.user
             carts = Cart.objects.filter(product=prod_id, user=user)
-                
-            
             if carts.exists():
-               
                 cart_item = carts.first()
                 cart_item.quantity -= 1
                 cart_item.save()
@@ -172,10 +174,8 @@ def minusCurt(request):
                 return JsonResponse({'error': 'Cart item not found'}, status=404)
             
         except MultipleObjectsReturned:
-          
             return JsonResponse({'error': 'Multiple Cart items found'}, status=500)
         except Exception as e:
-           
             print("Error:", str(e))
             return JsonResponse({'error': 'An error occurred'}, status=500)
 
@@ -184,8 +184,6 @@ def removeCurt(request):
     if request.method == 'GET':
         try:
             prod_id = request.GET['prod_id']
-            
-
             c = Cart.objects.filter(Q(product=prod_id) & Q(user=request.user)).first()
             
             if c:
@@ -236,10 +234,6 @@ def minus_wishlist(request):
         }
         return JsonResponse(data)   
     
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
-
 def search(request):
     query = request.GET['search']
     totalitem = 0
@@ -249,8 +243,6 @@ def search(request):
         wishitem=len(Wishlist.objects.filter(user=request.user))
     product = Product.objects.filter(Q(title__icontains=query)) 
     return render(request,'app/Search.html',locals())
-
-
 
 @method_decorator(login_required,name='dispatch')
 class CategoryView(View):
@@ -291,11 +283,7 @@ class ProductDetailView(View):
         wishitem = len(Wishlist.objects.filter(user=request.user))
 
         return render(request, 'app/productdetail.html', {'product': product, 'totalitem': totalitem, 'wishitem': wishitem})
-
-
-
-
-   
+ 
 class CustomerRegistrationView(View):
     def get(self,request):
         totalitem = 0
@@ -391,6 +379,7 @@ class checkoutView(View):
         return render(request,'app/checkout.html',locals())
     
 
+
 class ProductListAPIView(APIView):
     def get(self, request):
         products = Product.objects.all()
@@ -408,5 +397,6 @@ class ProductCreateAPIView(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
             
+
 
 

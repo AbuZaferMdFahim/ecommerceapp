@@ -2,7 +2,9 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+
 from .views import ProductCreateAPIView, ProductListAPIView
+
 from django.contrib import admin
 from django.contrib.auth import views as auth_view
 
@@ -12,12 +14,16 @@ from . forms import LoginForm,MyPasswordResetForm
 
 
 urlpatterns = [
+
     path('', views.home,name='home'),
+
+    path('', views.home),
     path('about/', views.about,name='about'),
     path('contact/', views.contact,name='contact'),
     path('category/<slug:val>', views.CategoryView.as_view(),name="category"),
     path('category-title/<val>', views.CategoryTitleView.as_view(),name="category-title"),
     path('addProduct/', views.addProduct, name='addProduct'),
+
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(),name="product-detail"),
     path('profile/', views.ProfileView.as_view(),name="profile"),
     path('address/', views.address,name="address"),
@@ -39,6 +45,7 @@ urlpatterns = [
     #api
     path('api/products/', ProductListAPIView.as_view(), name='product-list-api'),
     path('api/products/create/', ProductCreateAPIView.as_view(), name='product-create-api'),
+
 
     path('updateAddress/<int:pk>', views.UpdateAddressView.as_view(),name="updateAddress"),
 
